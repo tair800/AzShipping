@@ -86,25 +86,19 @@ public class TransportTypeService : ITransportTypeService
         if (existing == null)
             return null;
 
-        existing.Name = updateDto.Name;
-        existing.IsAir = updateDto.IsAir;
-        existing.IsSea = updateDto.IsSea;
-        existing.IsRoad = updateDto.IsRoad;
-        existing.IsRail = updateDto.IsRail;
-        existing.IsActive = updateDto.IsActive;
-        existing.UpdatedAt = DateTime.UtcNow;
-
-        // Update translations
-        existing.Translations.Clear();
+        // Create new translations list instead of clearing and modifying the existing collection
+        var newTranslations = new List<TransportTypeTranslation>();
         
         // Use Name as EN translation, or if EN is in translations, use that
         var enName = updateDto.Translations.ContainsKey("EN") 
             ? updateDto.Translations["EN"] 
-            : updateDto.Name;
+            : (updateDto.Translations.ContainsKey("en") 
+                ? updateDto.Translations["en"] 
+                : updateDto.Name);
         
         if (!string.IsNullOrWhiteSpace(enName))
         {
-            existing.Translations.Add(new TransportTypeTranslation
+            newTranslations.Add(new TransportTypeTranslation
             {
                 Id = Guid.NewGuid(),
                 TransportTypeId = existing.Id,
@@ -120,7 +114,7 @@ public class TransportTypeService : ITransportTypeService
             
             if (!string.IsNullOrWhiteSpace(translation.Value))
             {
-                existing.Translations.Add(new TransportTypeTranslation
+                newTranslations.Add(new TransportTypeTranslation
                 {
                     Id = Guid.NewGuid(),
                     TransportTypeId = existing.Id,
@@ -129,6 +123,16 @@ public class TransportTypeService : ITransportTypeService
                 });
             }
         }
+
+        // Assign new translations collection
+        existing.Translations = newTranslations;
+        existing.Name = updateDto.Name;
+        existing.IsAir = updateDto.IsAir;
+        existing.IsSea = updateDto.IsSea;
+        existing.IsRoad = updateDto.IsRoad;
+        existing.IsRail = updateDto.IsRail;
+        existing.IsActive = updateDto.IsActive;
+        existing.UpdatedAt = DateTime.UtcNow;
 
         var updated = await _repository.UpdateAsync(existing);
         return MapToDto(updated, null);

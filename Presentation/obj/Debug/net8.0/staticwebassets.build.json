@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "btTvPfY5Us6w2sEFjIwFr3bbLIt0Qo6FK7gVCfy5+zM=",
+  "Hash": "1Q9FXC4/91heFkN0AREZppJEYPagYpXWOm0N0RNsaSA=",
   "Source": "AzShipping.Presentation",
   "BasePath": "_content/AzShipping.Presentation",
   "Mode": "Default",
@@ -16,6 +16,25 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\carriertypes.html",
+      "SourceId": "AzShipping.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\",
+      "BasePath": "_content/AzShipping.Presentation",
+      "RelativePath": "carriertypes.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\carriertypes.html"
+    },
     {
       "Identity": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\css\\language.css",
       "SourceId": "AzShipping.Presentation",
@@ -34,6 +53,44 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\language.css"
+    },
+    {
+      "Identity": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\deferredpaymentconditions.html",
+      "SourceId": "AzShipping.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\",
+      "BasePath": "_content/AzShipping.Presentation",
+      "RelativePath": "deferredpaymentconditions.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\deferredpaymentconditions.html"
+    },
+    {
+      "Identity": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\drivinglicencecategories.html",
+      "SourceId": "AzShipping.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\",
+      "BasePath": "_content/AzShipping.Presentation",
+      "RelativePath": "drivinglicencecategories.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\drivinglicencecategories.html"
     },
     {
       "Identity": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\index.html",
@@ -74,6 +131,25 @@
       "OriginalItemSpec": "wwwroot\\js\\language.js"
     },
     {
+      "Identity": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\loadingmethods.html",
+      "SourceId": "AzShipping.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\",
+      "BasePath": "_content/AzShipping.Presentation",
+      "RelativePath": "loadingmethods.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\loadingmethods.html"
+    },
+    {
       "Identity": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\packagings.html",
       "SourceId": "AzShipping.Presentation",
       "SourceType": "Discovered",
@@ -91,6 +167,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\packagings.html"
+    },
+    {
+      "Identity": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\requestpurposes.html",
+      "SourceId": "AzShipping.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\",
+      "BasePath": "_content/AzShipping.Presentation",
+      "RelativePath": "requestpurposes.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\requestpurposes.html"
     },
     {
       "Identity": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\requestsources.html",
@@ -148,6 +243,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\transporttypes.html"
+    },
+    {
+      "Identity": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\workerposts.html",
+      "SourceId": "AzShipping.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\",
+      "BasePath": "_content/AzShipping.Presentation",
+      "RelativePath": "workerposts.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\workerposts.html"
     }
   ]
 }

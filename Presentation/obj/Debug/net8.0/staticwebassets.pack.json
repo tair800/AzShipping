@@ -1,8 +1,20 @@
 {
   "Files": [
     {
+      "Id": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\carriertypes.html",
+      "PackagePath": "staticwebassets\\carriertypes.html"
+    },
+    {
       "Id": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\css\\language.css",
       "PackagePath": "staticwebassets\\css\\language.css"
+    },
+    {
+      "Id": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\deferredpaymentconditions.html",
+      "PackagePath": "staticwebassets\\deferredpaymentconditions.html"
+    },
+    {
+      "Id": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\drivinglicencecategories.html",
+      "PackagePath": "staticwebassets\\drivinglicencecategories.html"
     },
     {
       "Id": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\index.html",
@@ -13,8 +25,16 @@
       "PackagePath": "staticwebassets\\js\\language.js"
     },
     {
+      "Id": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\loadingmethods.html",
+      "PackagePath": "staticwebassets\\loadingmethods.html"
+    },
+    {
       "Id": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\packagings.html",
       "PackagePath": "staticwebassets\\packagings.html"
+    },
+    {
+      "Id": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\requestpurposes.html",
+      "PackagePath": "staticwebassets\\requestpurposes.html"
     },
     {
       "Id": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\requestsources.html",
@@ -27,6 +47,10 @@
     {
       "Id": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\transporttypes.html",
       "PackagePath": "staticwebassets\\transporttypes.html"
+    },
+    {
+      "Id": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\workerposts.html",
+      "PackagePath": "staticwebassets\\workerposts.html"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.AzShipping.Presentation.Microsoft.AspNetCore.StaticWebAssets.props",

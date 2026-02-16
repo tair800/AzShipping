@@ -19,6 +19,14 @@ public class ApplicationDbContext : DbContext
     public DbSet<SalesFunnelStatusTranslation> SalesFunnelStatusTranslations { get; set; }
     public DbSet<TransportType> TransportTypes { get; set; }
     public DbSet<TransportTypeTranslation> TransportTypeTranslations { get; set; }
+    public DbSet<LoadingMethod> LoadingMethods { get; set; }
+    public DbSet<LoadingMethodTranslation> LoadingMethodTranslations { get; set; }
+    public DbSet<DeferredPaymentCondition> DeferredPaymentConditions { get; set; }
+    public DbSet<RequestPurpose> RequestPurposes { get; set; }
+    public DbSet<DrivingLicenceCategory> DrivingLicenceCategories { get; set; }
+    public DbSet<WorkerPost> WorkerPosts { get; set; }
+    public DbSet<WorkerPostTranslation> WorkerPostTranslations { get; set; }
+    public DbSet<CarrierType> CarrierTypes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -110,6 +118,64 @@ public class ApplicationDbContext : DbContext
             entity.Property(e => e.LanguageCode).IsRequired().HasMaxLength(10);
             entity.Property(e => e.Name).IsRequired().HasMaxLength(200);
             entity.HasIndex(e => new { e.TransportTypeId, e.LanguageCode }).IsUnique();
+        });
+
+        modelBuilder.Entity<LoadingMethod>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.CreatedAt).IsRequired();
+            entity.HasMany(e => e.Translations)
+                  .WithOne(t => t.LoadingMethod)
+                  .HasForeignKey(t => t.LoadingMethodId)
+                  .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<LoadingMethodTranslation>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.LanguageCode).IsRequired().HasMaxLength(10);
+            entity.Property(e => e.Name).IsRequired().HasMaxLength(200);
+            entity.HasIndex(e => new { e.LoadingMethodId, e.LanguageCode }).IsUnique();
+        });
+
+        modelBuilder.Entity<DeferredPaymentCondition>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Name).IsRequired().HasMaxLength(200);
+            entity.Property(e => e.FullText).HasMaxLength(1000);
+            entity.Property(e => e.CreatedAt).IsRequired();
+        });
+
+        modelBuilder.Entity<RequestPurpose>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Name).IsRequired().HasMaxLength(200);
+            entity.Property(e => e.CreatedAt).IsRequired();
+        });
+
+        modelBuilder.Entity<DrivingLicenceCategory>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Name).IsRequired().HasMaxLength(10);
+            entity.Property(e => e.CreatedAt).IsRequired();
+        });
+
+        modelBuilder.Entity<WorkerPost>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.CreatedAt).IsRequired();
+            entity.HasMany(e => e.Translations)
+                  .WithOne(t => t.WorkerPost)
+                  .HasForeignKey(t => t.WorkerPostId)
+                  .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<WorkerPostTranslation>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.LanguageCode).IsRequired().HasMaxLength(10);
+            entity.Property(e => e.Name).IsRequired().HasMaxLength(200);
+            entity.HasIndex(e => new { e.WorkerPostId, e.LanguageCode }).IsUnique();
         });
     }
 }

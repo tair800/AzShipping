@@ -38,18 +38,42 @@ public class TransportTypeRepository : ITransportTypeRepository
 
     public async Task<TransportType> UpdateAsync(TransportType transportType)
     {
-        // Remove existing translations
+        // Remove existing translations - query directly from database to avoid tracking issues
         var existingTranslations = await _context.TransportTypeTranslations
             .Where(t => t.TransportTypeId == transportType.Id)
             .ToListAsync();
         _context.TransportTypeTranslations.RemoveRange(existingTranslations);
 
         // Add new translations
-        _context.TransportTypeTranslations.AddRange(transportType.Translations);
+        if (transportType.Translations != null && transportType.Translations.Any())
+        {
+            _context.TransportTypeTranslations.AddRange(transportType.Translations);
+        }
 
-        _context.TransportTypes.Update(transportType);
+        // Update the entity - mark only the properties that changed
+        var existing = await _context.TransportTypes.FindAsync(transportType.Id);
+        if (existing != null)
+        {
+            existing.Name = transportType.Name;
+            existing.IsAir = transportType.IsAir;
+            existing.IsSea = transportType.IsSea;
+            existing.IsRoad = transportType.IsRoad;
+            existing.IsRail = transportType.IsRail;
+            existing.IsActive = transportType.IsActive;
+            existing.UpdatedAt = transportType.UpdatedAt;
+            
+            // Explicitly mark Name as modified to ensure it's saved
+            _context.Entry(existing).Property(e => e.Name).IsModified = true;
+        }
+        else
+        {
+            _context.TransportTypes.Update(transportType);
+        }
+
         await _context.SaveChangesAsync();
-        return transportType;
+        
+        // Reload the entity with includes to ensure translations are loaded
+        return await GetByIdAsync(transportType.Id) ?? transportType;
     }
 
     public async Task<bool> DeleteAsync(Guid id)

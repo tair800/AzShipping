@@ -46,6 +46,12 @@ builder.Services.AddScoped<IPackagingRepository, PackagingRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ISalesFunnelStatusRepository, SalesFunnelStatusRepository>();
 builder.Services.AddScoped<ITransportTypeRepository, TransportTypeRepository>();
+builder.Services.AddScoped<ILoadingMethodRepository, LoadingMethodRepository>();
+builder.Services.AddScoped<IDeferredPaymentConditionRepository, DeferredPaymentConditionRepository>();
+builder.Services.AddScoped<IRequestPurposeRepository, RequestPurposeRepository>();
+builder.Services.AddScoped<IDrivingLicenceCategoryRepository, DrivingLicenceCategoryRepository>();
+builder.Services.AddScoped<IWorkerPostRepository, WorkerPostRepository>();
+builder.Services.AddScoped<ICarrierTypeRepository, CarrierTypeRepository>();
 
 // Register services
 builder.Services.AddScoped<IClientSegmentService, ClientSegmentService>();
@@ -54,6 +60,12 @@ builder.Services.AddScoped<IPackagingService, PackagingService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ISalesFunnelStatusService, SalesFunnelStatusService>();
 builder.Services.AddScoped<ITransportTypeService, TransportTypeService>();
+builder.Services.AddScoped<ILoadingMethodService, LoadingMethodService>();
+builder.Services.AddScoped<IDeferredPaymentConditionService, DeferredPaymentConditionService>();
+builder.Services.AddScoped<IRequestPurposeService, RequestPurposeService>();
+builder.Services.AddScoped<IDrivingLicenceCategoryService, DrivingLicenceCategoryService>();
+builder.Services.AddScoped<IWorkerPostService, WorkerPostService>();
+builder.Services.AddScoped<ICarrierTypeService, CarrierTypeService>();
 
 var app = builder.Build();
 
@@ -62,6 +74,114 @@ using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     context.Database.EnsureCreated();
+    
+    // Ensure LoadingMethod tables exist (for existing databases)
+    // This handles the case where the database already exists but LoadingMethod tables don't
+    try
+    {
+        context.Database.ExecuteSqlRaw(@"
+            CREATE TABLE IF NOT EXISTS ""LoadingMethods"" (
+                ""Id"" UUID PRIMARY KEY,
+                ""IsActive"" BOOLEAN NOT NULL,
+                ""CreatedAt"" TIMESTAMP NOT NULL,
+                ""UpdatedAt"" TIMESTAMP
+            );
+        ");
+        
+        context.Database.ExecuteSqlRaw(@"
+            CREATE TABLE IF NOT EXISTS ""LoadingMethodTranslations"" (
+                ""Id"" UUID PRIMARY KEY,
+                ""LoadingMethodId"" UUID NOT NULL,
+                ""LanguageCode"" VARCHAR(10) NOT NULL,
+                ""Name"" VARCHAR(200) NOT NULL,
+                CONSTRAINT ""FK_LoadingMethodTranslations_LoadingMethods_LoadingMethodId"" 
+                    FOREIGN KEY (""LoadingMethodId"") 
+                    REFERENCES ""LoadingMethods"" (""Id"") 
+                    ON DELETE CASCADE
+            );
+        ");
+        
+        context.Database.ExecuteSqlRaw(@"
+            CREATE UNIQUE INDEX IF NOT EXISTS ""IX_LoadingMethodTranslations_LoadingMethodId_LanguageCode"" 
+                ON ""LoadingMethodTranslations"" (""LoadingMethodId"", ""LanguageCode"");
+        ");
+        
+        context.Database.ExecuteSqlRaw(@"
+            CREATE TABLE IF NOT EXISTS ""DeferredPaymentConditions"" (
+                ""Id"" UUID PRIMARY KEY,
+                ""Name"" VARCHAR(200) NOT NULL,
+                ""FullText"" VARCHAR(1000),
+                ""IsActive"" BOOLEAN NOT NULL,
+                ""CreatedAt"" TIMESTAMP NOT NULL,
+                ""UpdatedAt"" TIMESTAMP
+            );
+        ");
+        
+        context.Database.ExecuteSqlRaw(@"
+            CREATE TABLE IF NOT EXISTS ""RequestPurposes"" (
+                ""Id"" UUID PRIMARY KEY,
+                ""Name"" VARCHAR(200) NOT NULL,
+                ""IsActive"" BOOLEAN NOT NULL,
+                ""CreatedAt"" TIMESTAMP NOT NULL,
+                ""UpdatedAt"" TIMESTAMP
+            );
+        ");
+        
+        context.Database.ExecuteSqlRaw(@"
+            CREATE TABLE IF NOT EXISTS ""DrivingLicenceCategories"" (
+                ""Id"" UUID PRIMARY KEY,
+                ""Name"" VARCHAR(10) NOT NULL,
+                ""IsActive"" BOOLEAN NOT NULL,
+                ""CreatedAt"" TIMESTAMP NOT NULL,
+                ""UpdatedAt"" TIMESTAMP
+            );
+        ");
+        
+        context.Database.ExecuteSqlRaw(@"
+            CREATE TABLE IF NOT EXISTS ""WorkerPosts"" (
+                ""Id"" UUID PRIMARY KEY,
+                ""IsActive"" BOOLEAN NOT NULL,
+                ""CreatedAt"" TIMESTAMP NOT NULL,
+                ""UpdatedAt"" TIMESTAMP
+            );
+        ");
+        
+        context.Database.ExecuteSqlRaw(@"
+            CREATE TABLE IF NOT EXISTS ""WorkerPostTranslations"" (
+                ""Id"" UUID PRIMARY KEY,
+                ""WorkerPostId"" UUID NOT NULL,
+                ""LanguageCode"" VARCHAR(10) NOT NULL,
+                ""Name"" VARCHAR(200) NOT NULL,
+                CONSTRAINT ""FK_WorkerPostTranslations_WorkerPosts_WorkerPostId"" 
+                    FOREIGN KEY (""WorkerPostId"") 
+                    REFERENCES ""WorkerPosts"" (""Id"") 
+                    ON DELETE CASCADE
+            );
+        ");
+        
+        context.Database.ExecuteSqlRaw(@"
+            CREATE UNIQUE INDEX IF NOT EXISTS ""IX_WorkerPostTranslations_WorkerPostId_LanguageCode"" 
+                ON ""WorkerPostTranslations"" (""WorkerPostId"", ""LanguageCode"");
+        ");
+        
+        context.Database.ExecuteSqlRaw(@"
+            CREATE TABLE IF NOT EXISTS ""CarrierTypes"" (
+                ""Id"" UUID PRIMARY KEY,
+                ""Name"" VARCHAR(200) NOT NULL,
+                ""IsActive"" BOOLEAN NOT NULL,
+                ""Colour"" VARCHAR(7) NOT NULL,
+                ""IsDefault"" BOOLEAN NOT NULL,
+                ""CreatedAt"" TIMESTAMP NOT NULL,
+                ""UpdatedAt"" TIMESTAMP
+            );
+        ");
+    }
+    catch
+    {
+        // Tables might already exist or there was an error, continue anyway
+        // The seeder will handle inserting data if tables are empty
+    }
+    
     DatabaseSeeder.Seed(context);
 }
 

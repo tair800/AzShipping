@@ -13,3 +13,4 @@ C:\Users\taira\OneDrive\Desktop\AzShipping\Application\obj\Debug\net8.0\AzShippi
 C:\Users\taira\OneDrive\Desktop\AzShipping\Application\obj\Debug\net8.0\refint\AzShipping.Application.dll
 C:\Users\taira\OneDrive\Desktop\AzShipping\Application\obj\Debug\net8.0\AzShipping.Application.pdb
 C:\Users\taira\OneDrive\Desktop\AzShipping\Application\obj\Debug\net8.0\ref\AzShipping.Application.dll
+C:\Users\taira\OneDrive\Desktop\AzShipping\Application\obj\Debug\net8.0\AzShipping.Application.sourcelink.json

@@ -110,3 +110,4 @@ C:\Users\taira\OneDrive\Desktop\AzShipping\Presentation\obj\Debug\net8.0\refint\
 C:\Users\taira\OneDrive\Desktop\AzShipping\Presentation\obj\Debug\net8.0\AzShipping.Presentation.pdb
 C:\Users\taira\OneDrive\Desktop\AzShipping\Presentation\obj\Debug\net8.0\AzShipping.Presentation.genruntimeconfig.cache
 C:\Users\taira\OneDrive\Desktop\AzShipping\Presentation\obj\Debug\net8.0\ref\AzShipping.Presentation.dll
+C:\Users\taira\OneDrive\Desktop\AzShipping\Presentation\obj\Debug\net8.0\AzShipping.Presentation.sourcelink.json

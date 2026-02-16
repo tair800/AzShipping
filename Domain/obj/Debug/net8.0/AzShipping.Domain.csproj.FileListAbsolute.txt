@@ -9,3 +9,4 @@ C:\Users\taira\OneDrive\Desktop\AzShipping\Domain\obj\Debug\net8.0\AzShipping.Do
 C:\Users\taira\OneDrive\Desktop\AzShipping\Domain\obj\Debug\net8.0\refint\AzShipping.Domain.dll
 C:\Users\taira\OneDrive\Desktop\AzShipping\Domain\obj\Debug\net8.0\AzShipping.Domain.pdb
 C:\Users\taira\OneDrive\Desktop\AzShipping\Domain\obj\Debug\net8.0\ref\AzShipping.Domain.dll
+C:\Users\taira\OneDrive\Desktop\AzShipping\Domain\obj\Debug\net8.0\AzShipping.Domain.sourcelink.json

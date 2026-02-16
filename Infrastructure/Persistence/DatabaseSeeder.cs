@@ -209,6 +209,319 @@ public static class DatabaseSeeder
             context.TransportTypes.AddRange(transportTypes);
             context.SaveChanges();
         }
+
+        // Seed Loading Methods
+        if (!context.LoadingMethods.Any())
+        {
+            var loadingMethods = new List<LoadingMethod>
+            {
+                CreateLoadingMethodWithTranslations("Top", new Dictionary<string, string>
+                {
+                    { "EN", "Top" },
+                    { "LT", "Viršus" },
+                    { "RU", "Сверху" }
+                }),
+                CreateLoadingMethodWithTranslations("Side", new Dictionary<string, string>
+                {
+                    { "EN", "Side" },
+                    { "LT", "Šonas" },
+                    { "RU", "Сбоку" }
+                }),
+                CreateLoadingMethodWithTranslations("Back", new Dictionary<string, string>
+                {
+                    { "EN", "Back" },
+                    { "LT", "Galinė" },
+                    { "RU", "Сзади" }
+                })
+            };
+
+            context.LoadingMethods.AddRange(loadingMethods);
+            context.SaveChanges();
+        }
+
+        // Seed Deferred Payment Conditions
+        if (!context.DeferredPaymentConditions.Any())
+        {
+            var conditions = new List<DeferredPaymentCondition>
+            {
+                new DeferredPaymentCondition
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Bit 10 calendar days.",
+                    FullText = "Bank transfer within 10 calendar days after receipt of the original invoice, act, CMR with the recipient's mark.",
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new DeferredPaymentCondition
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Bit 3 calendar days.",
+                    FullText = "Bank transfer within 3 calendar days after receiving the originals of the invoice, act, CMR with the recipient's mark.",
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new DeferredPaymentCondition
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Bit 30 calendar days.",
+                    FullText = "Bank transfer within 30 calendar days after receiving the originals of the invoice, act, CMR with the recipient's mark.",
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new DeferredPaymentCondition
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Bit 5 calendar days.",
+                    FullText = "Bank transfer within 5 calendar days after receipt of the original invoice, act, CMR with the recipient's mark.",
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new DeferredPaymentCondition
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Bit 7 calendar days.",
+                    FullText = "Bank transfer within 7 calendar days after receipt of the original invoice, act, CMR with the recipient's mark.",
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow
+                }
+            };
+
+            context.DeferredPaymentConditions.AddRange(conditions);
+            context.SaveChanges();
+        }
+
+        // Seed Request Purposes
+        if (!context.RequestPurposes.Any())
+        {
+            var purposes = new List<RequestPurpose>
+            {
+                new RequestPurpose
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Price calculation only",
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new RequestPurpose
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Real + price calculation",
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new RequestPurpose
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Real cargo",
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow
+                }
+            };
+
+            context.RequestPurposes.AddRange(purposes);
+            context.SaveChanges();
+        }
+
+        // Seed Driving Licence Categories
+        if (!context.DrivingLicenceCategories.Any())
+        {
+            var categories = new List<DrivingLicenceCategory>
+            {
+                new DrivingLicenceCategory
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "A",
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new DrivingLicenceCategory
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "B",
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new DrivingLicenceCategory
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "C",
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new DrivingLicenceCategory
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "D",
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new DrivingLicenceCategory
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "E",
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow
+                }
+            };
+
+            context.DrivingLicenceCategories.AddRange(categories);
+            context.SaveChanges();
+        }
+
+        // Seed Worker Posts
+        if (!context.WorkerPosts.Any())
+        {
+            var posts = new List<WorkerPost>
+            {
+                CreateWorkerPostWithTranslations("Accountant", new Dictionary<string, string>
+                {
+                    { "EN", "Accountant" },
+                    { "RU", "Бухгалтер" },
+                    { "PL", "Księgowy" },
+                    { "LT", "Buhalteris" }
+                }),
+                CreateWorkerPostWithTranslations("Commercial Director", new Dictionary<string, string>
+                {
+                    { "EN", "Commercial Director" },
+                    { "RU", "Коммерческий директор" },
+                    { "PL", "Dyrektor handlowy" },
+                    { "LT", "Komercinis direktorius" }
+                }),
+                CreateWorkerPostWithTranslations("Deputy Director", new Dictionary<string, string>
+                {
+                    { "EN", "Deputy Director" },
+                    { "RU", "Заместитель директора" },
+                    { "PL", "Zastępca dyrektora" },
+                    { "LT", "Direktoriaus pavaduotojas" }
+                }),
+                CreateWorkerPostWithTranslations("Director", new Dictionary<string, string>
+                {
+                    { "EN", "Director" },
+                    { "RU", "Директор" },
+                    { "PL", "Dyrektor" },
+                    { "LT", "Direktorius" }
+                }),
+                CreateWorkerPostWithTranslations("General Director", new Dictionary<string, string>
+                {
+                    { "EN", "General Director" },
+                    { "RU", "Генеральный директор" },
+                    { "PL", "Dyrektor generalny" },
+                    { "LT", "Generalinis direktorius" }
+                }),
+                CreateWorkerPostWithTranslations("Head of Sales Department", new Dictionary<string, string>
+                {
+                    { "EN", "Head of Sales Department" },
+                    { "RU", "Начальник отдела продаж" },
+                    { "PL", "Kierownik działu sprzedaży" },
+                    { "LT", "Pardavimų skyriaus vadovas" }
+                }),
+                CreateWorkerPostWithTranslations("Head of Transport Department", new Dictionary<string, string>
+                {
+                    { "EN", "Head of Transport Department" },
+                    { "RU", "Начальник транспортного отдела" },
+                    { "PL", "Kierownik działu transportu" },
+                    { "LT", "Transporto skyriaus vadovas" }
+                }),
+                CreateWorkerPostWithTranslations("Logist", new Dictionary<string, string>
+                {
+                    { "EN", "Logist" },
+                    { "RU", "Логист" },
+                    { "PL", "Logistyk" },
+                    { "LT", "Logistikas" }
+                }),
+                CreateWorkerPostWithTranslations("Manager", new Dictionary<string, string>
+                {
+                    { "EN", "Manager" },
+                    { "RU", "Менеджер" },
+                    { "PL", "Menedżer" },
+                    { "LT", "Vadybininkas" }
+                })
+            };
+
+            context.WorkerPosts.AddRange(posts);
+            context.SaveChanges();
+        }
+
+        SeedCarrierTypes(context);
+    }
+
+    private static void SeedCarrierTypes(ApplicationDbContext context)
+    {
+        if (!context.CarrierTypes.Any())
+        {
+            var carrierTypes = new List<CarrierType>
+            {
+                new CarrierType
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "New",
+                    IsActive = true,
+                    Colour = "#000000",
+                    IsDefault = false,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new CarrierType
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Reliable",
+                    IsActive = true,
+                    Colour = "#000000",
+                    IsDefault = false,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new CarrierType
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Unreliable",
+                    IsActive = true,
+                    Colour = "#000000",
+                    IsDefault = false,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new CarrierType
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Unverified",
+                    IsActive = true,
+                    Colour = "#000000",
+                    IsDefault = false,
+                    CreatedAt = DateTime.UtcNow
+                }
+            };
+
+            context.CarrierTypes.AddRange(carrierTypes);
+            context.SaveChanges();
+        }
+    }
+
+    private static WorkerPost CreateWorkerPostWithTranslations(string defaultName, Dictionary<string, string> translations)
+    {
+        var post = new WorkerPost
+        {
+            Id = Guid.NewGuid(),
+            IsActive = true,
+            CreatedAt = DateTime.UtcNow,
+            Translations = new List<WorkerPostTranslation>()
+        };
+
+        // Add EN as default if not in translations
+        if (!translations.ContainsKey("EN"))
+        {
+            translations["EN"] = defaultName;
+        }
+
+        foreach (var translation in translations)
+        {
+            post.Translations.Add(new WorkerPostTranslation
+            {
+                Id = Guid.NewGuid(),
+                WorkerPostId = post.Id,
+                LanguageCode = translation.Key,
+                Name = translation.Value
+            });
+        }
+
+        return post;
     }
 
     private static TransportType CreateTransportType(string name, bool isAir, bool isSea, bool isRoad, bool isRail, bool isActive)
@@ -294,6 +607,36 @@ public static class DatabaseSeeder
         }
 
         return packaging;
+    }
+
+    private static LoadingMethod CreateLoadingMethodWithTranslations(string defaultName, Dictionary<string, string> translations)
+    {
+        var loadingMethod = new LoadingMethod
+        {
+            Id = Guid.NewGuid(),
+            IsActive = true,
+            CreatedAt = DateTime.UtcNow,
+            Translations = new List<LoadingMethodTranslation>()
+        };
+
+        // Add EN as default if not in translations
+        if (!translations.ContainsKey("EN"))
+        {
+            translations["EN"] = defaultName;
+        }
+
+        foreach (var translation in translations)
+        {
+            loadingMethod.Translations.Add(new LoadingMethodTranslation
+            {
+                Id = Guid.NewGuid(),
+                LoadingMethodId = loadingMethod.Id,
+                LanguageCode = translation.Key,
+                Name = translation.Value
+            });
+        }
+
+        return loadingMethod;
     }
 }
 
