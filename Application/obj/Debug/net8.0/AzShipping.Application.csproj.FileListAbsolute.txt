@@ -1,0 +1,15 @@
+C:\Users\taira\OneDrive\Desktop\AzShipping\Application\bin\Debug\net8.0\AzShipping.Application.deps.json
+C:\Users\taira\OneDrive\Desktop\AzShipping\Application\bin\Debug\net8.0\AzShipping.Application.dll
+C:\Users\taira\OneDrive\Desktop\AzShipping\Application\bin\Debug\net8.0\AzShipping.Application.pdb
+C:\Users\taira\OneDrive\Desktop\AzShipping\Application\bin\Debug\net8.0\AzShipping.Domain.dll
+C:\Users\taira\OneDrive\Desktop\AzShipping\Application\bin\Debug\net8.0\AzShipping.Domain.pdb
+C:\Users\taira\OneDrive\Desktop\AzShipping\Application\obj\Debug\net8.0\AzShipping.Application.csproj.AssemblyReference.cache
+C:\Users\taira\OneDrive\Desktop\AzShipping\Application\obj\Debug\net8.0\AzShipping.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\taira\OneDrive\Desktop\AzShipping\Application\obj\Debug\net8.0\AzShipping.Application.AssemblyInfoInputs.cache
+C:\Users\taira\OneDrive\Desktop\AzShipping\Application\obj\Debug\net8.0\AzShipping.Application.AssemblyInfo.cs
+C:\Users\taira\OneDrive\Desktop\AzShipping\Application\obj\Debug\net8.0\AzShipping.Application.csproj.CoreCompileInputs.cache
+C:\Users\taira\OneDrive\Desktop\AzShipping\Application\obj\Debug\net8.0\AzShippi.D6FBEACD.Up2Date
+C:\Users\taira\OneDrive\Desktop\AzShipping\Application\obj\Debug\net8.0\AzShipping.Application.dll
+C:\Users\taira\OneDrive\Desktop\AzShipping\Application\obj\Debug\net8.0\refint\AzShipping.Application.dll
+C:\Users\taira\OneDrive\Desktop\AzShipping\Application\obj\Debug\net8.0\AzShipping.Application.pdb
+C:\Users\taira\OneDrive\Desktop\AzShipping\Application\obj\Debug\net8.0\ref\AzShipping.Application.dll

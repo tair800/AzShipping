@@ -1,0 +1,49 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\css\\language.css",
+      "PackagePath": "staticwebassets\\css\\language.css"
+    },
+    {
+      "Id": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\js\\language.js",
+      "PackagePath": "staticwebassets\\js\\language.js"
+    },
+    {
+      "Id": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\packagings.html",
+      "PackagePath": "staticwebassets\\packagings.html"
+    },
+    {
+      "Id": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\requestsources.html",
+      "PackagePath": "staticwebassets\\requestsources.html"
+    },
+    {
+      "Id": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\salesfunnelstatuses.html",
+      "PackagePath": "staticwebassets\\salesfunnelstatuses.html"
+    },
+    {
+      "Id": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\transporttypes.html",
+      "PackagePath": "staticwebassets\\transporttypes.html"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.AzShipping.Presentation.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.AzShipping.Presentation.props",
+      "PackagePath": "build\\AzShipping.Presentation.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.AzShipping.Presentation.props",
+      "PackagePath": "buildMultiTargeting\\AzShipping.Presentation.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.AzShipping.Presentation.props",
+      "PackagePath": "buildTransitive\\AzShipping.Presentation.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

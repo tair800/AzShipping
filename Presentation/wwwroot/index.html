@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AzShipping - Client Segments</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .nav {
+            background: #f8f9fa;
+            padding: 15px 30px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .nav a {
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #667eea;
+            font-weight: 600;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .nav a:hover {
+            background: #e8eaf6;
+        }
+
+        .nav a.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
+        .btn-edit {
+            background: #f39c12;
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background: #e67e22;
+        }
+
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .color-swatch {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            border: 2px solid #ddd;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-active {
+            background: #2ecc71;
+            color: white;
+        }
+
+        .badge-inactive {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .badge-default {
+            background: #3498db;
+            color: white;
+            margin-left: 5px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            overflow: auto;
+        }
+
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            color: #333;
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #667eea;
+            font-size: 18px;
+        }
+
+        .error {
+            background: #e74c3c;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .success {
+            background: #2ecc71;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .priority-badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: 600;
+            min-width: 40px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Client Segments Management</h1>
+            <p>AzShipping Logistic Backend</p>
+        </div>
+        <div class="nav">
+            <a href="/index.html" class="active">Client Segments</a>
+            <a href="/requestsources.html">Request Sources</a>
+            <a href="/packagings.html">Packagings</a>
+            <a href="/salesfunnelstatuses.html">Sales Funnel Status</a>
+            <a href="/transporttypes.html">Transport Types</a>
+        </div>
+        <div class="content">
+            <div id="message"></div>
+            <div class="actions">
+                <button class="btn btn-primary" onclick="openCreateModal()">+ Add New Segment</button>
+                <button class="btn btn-secondary" onclick="loadSegments()">Refresh</button>
+            </div>
+            <div class="table-container">
+                <div id="loading" class="loading">Loading segments...</div>
+                <table id="segmentsTable" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Segment Name</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Colour</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="segmentsBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create/Edit Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add New Segment</h2>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <form id="segmentForm" onsubmit="saveSegment(event)">
+                <input type="hidden" id="segmentId">
+                <div class="form-group">
+                    <label for="segmentName">Segment Name *</label>
+                    <input type="text" id="segmentName" required>
+                </div>
+                <div class="form-group">
+                    <label for="segmentPriority">Segment Priority *</label>
+                    <input type="number" id="segmentPriority" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="primaryColor">Primary Color *</label>
+                    <input type="color" id="primaryColor" required>
+                </div>
+                <div class="form-group">
+                    <label for="secondaryColor">Secondary Color *</label>
+                    <input type="color" id="secondaryColor" required>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="isActive" checked>
+                        <label for="isActive">Active</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="isDefault">
+                        <label for="isDefault">By Default</label>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = '/api/clientsegments';
+        let currentEditId = null;
+
+        // Load segments on page load
+        window.onload = () => {
+            loadSegments();
+        };
+
+        // Load all segments
+        async function loadSegments() {
+            const loading = document.getElementById('loading');
+            const table = document.getElementById('segmentsTable');
+            const tbody = document.getElementById('segmentsBody');
+
+            loading.style.display = 'block';
+            table.style.display = 'none';
+
+            try {
+                const response = await fetch(API_BASE_URL);
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`HTTP ${response.status}: ${errorText || 'Failed to load segments'}`);
+                }
+
+                const segments = await response.json();
+                tbody.innerHTML = '';
+
+                if (segments.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 40px;">No segments found. Click "Add New Segment" to create one.</td></tr>';
+                } else {
+                    segments.forEach(segment => {
+                        const row = createTableRow(segment);
+                        tbody.appendChild(row);
+                    });
+                }
+
+                loading.style.display = 'none';
+                table.style.display = 'table';
+            } catch (error) {
+                loading.innerHTML = `<div class="error">Error loading segments: ${error.message}</div>`;
+                console.error('Error:', error);
+            }
+        }
+
+        // Create table row
+        function createTableRow(segment) {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><strong>${segment.segmentName}</strong></td>
+                <td><span class="priority-badge">${segment.segmentPriority}</span></td>
+                <td>
+                    <span class="badge ${segment.isActive ? 'badge-active' : 'badge-inactive'}">
+                        ${segment.isActive ? 'Active' : 'Inactive'}
+                    </span>
+                    ${segment.isDefault ? '<span class="badge badge-default">Default</span>' : ''}
+                </td>
+                <td>
+                    <span class="color-swatch" style="background-color: ${segment.primaryColor}"></span>
+                    <span class="color-swatch" style="background-color: ${segment.secondaryColor}"></span>
+                </td>
+                <td>
+                    <button class="btn btn-edit" onclick="editSegment('${segment.id}')">Edit</button>
+                    <button class="btn btn-danger" onclick="deleteSegment('${segment.id}')">Delete</button>
+                </td>
+            `;
+            return tr;
+        }
+
+        // Open create modal
+        function openCreateModal() {
+            currentEditId = null;
+            document.getElementById('modalTitle').textContent = 'Add New Segment';
+            document.getElementById('segmentForm').reset();
+            document.getElementById('segmentId').value = '';
+            document.getElementById('isActive').checked = true;
+            document.getElementById('isDefault').checked = false;
+            document.getElementById('modal').style.display = 'block';
+        }
+
+        // Edit segment
+        async function editSegment(id) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/${id}`);
+                if (!response.ok) throw new Error('Failed to load segment');
+
+                const segment = await response.json();
+                currentEditId = id;
+
+                document.getElementById('modalTitle').textContent = 'Edit Segment';
+                document.getElementById('segmentId').value = segment.id;
+                document.getElementById('segmentName').value = segment.segmentName;
+                document.getElementById('segmentPriority').value = segment.segmentPriority;
+                document.getElementById('primaryColor').value = segment.primaryColor;
+                document.getElementById('secondaryColor').value = segment.secondaryColor;
+                document.getElementById('isActive').checked = segment.isActive;
+                document.getElementById('isDefault').checked = segment.isDefault;
+
+                document.getElementById('modal').style.display = 'block';
+            } catch (error) {
+                showMessage('Error loading segment: ' + error.message, 'error');
+                console.error('Error:', error);
+            }
+        }
+
+        // Save segment (create or update)
+        async function saveSegment(event) {
+            event.preventDefault();
+
+            const segmentData = {
+                segmentName: document.getElementById('segmentName').value,
+                segmentPriority: parseInt(document.getElementById('segmentPriority').value),
+                primaryColor: document.getElementById('primaryColor').value,
+                secondaryColor: document.getElementById('secondaryColor').value,
+                isActive: document.getElementById('isActive').checked,
+                isDefault: document.getElementById('isDefault').checked
+            };
+
+            try {
+                let response;
+                if (currentEditId) {
+                    // Update
+                    response = await fetch(`${API_BASE_URL}/${currentEditId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(segmentData)
+                    });
+                } else {
+                    // Create
+                    response = await fetch(API_BASE_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(segmentData)
+                    });
+                }
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.message || 'Failed to save segment');
+                }
+
+                showMessage(`Segment ${currentEditId ? 'updated' : 'created'} successfully!`, 'success');
+                closeModal();
+                loadSegments();
+            } catch (error) {
+                showMessage('Error saving segment: ' + error.message, 'error');
+                console.error('Error:', error);
+            }
+        }
+
+        // Delete segment
+        async function deleteSegment(id) {
+            if (!confirm('Are you sure you want to delete this segment?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/${id}`, {
+                    method: 'DELETE'
+                });
+
+                if (!response.ok) throw new Error('Failed to delete segment');
+
+                showMessage('Segment deleted successfully!', 'success');
+                loadSegments();
+            } catch (error) {
+                showMessage('Error deleting segment: ' + error.message, 'error');
+                console.error('Error:', error);
+            }
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+            currentEditId = null;
+        }
+
+        // Show message
+        function showMessage(message, type) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.className = type;
+            messageDiv.textContent = message;
+            messageDiv.style.display = 'block';
+
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
+

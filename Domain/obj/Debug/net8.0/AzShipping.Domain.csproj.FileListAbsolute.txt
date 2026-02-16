@@ -1,0 +1,11 @@
+C:\Users\taira\OneDrive\Desktop\AzShipping\Domain\bin\Debug\net8.0\AzShipping.Domain.deps.json
+C:\Users\taira\OneDrive\Desktop\AzShipping\Domain\bin\Debug\net8.0\AzShipping.Domain.dll
+C:\Users\taira\OneDrive\Desktop\AzShipping\Domain\bin\Debug\net8.0\AzShipping.Domain.pdb
+C:\Users\taira\OneDrive\Desktop\AzShipping\Domain\obj\Debug\net8.0\AzShipping.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\taira\OneDrive\Desktop\AzShipping\Domain\obj\Debug\net8.0\AzShipping.Domain.AssemblyInfoInputs.cache
+C:\Users\taira\OneDrive\Desktop\AzShipping\Domain\obj\Debug\net8.0\AzShipping.Domain.AssemblyInfo.cs
+C:\Users\taira\OneDrive\Desktop\AzShipping\Domain\obj\Debug\net8.0\AzShipping.Domain.csproj.CoreCompileInputs.cache
+C:\Users\taira\OneDrive\Desktop\AzShipping\Domain\obj\Debug\net8.0\AzShipping.Domain.dll
+C:\Users\taira\OneDrive\Desktop\AzShipping\Domain\obj\Debug\net8.0\refint\AzShipping.Domain.dll
+C:\Users\taira\OneDrive\Desktop\AzShipping\Domain\obj\Debug\net8.0\AzShipping.Domain.pdb
+C:\Users\taira\OneDrive\Desktop\AzShipping\Domain\obj\Debug\net8.0\ref\AzShipping.Domain.dll
