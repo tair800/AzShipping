@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "1Q9FXC4/91heFkN0AREZppJEYPagYpXWOm0N0RNsaSA=",
+  "Hash": "jbzlTa9ZCmUWz6jINwt5jKp0CwjFhD3kP/uSqb3bcFk=",
   "Source": "AzShipping.Presentation",
   "BasePath": "_content/AzShipping.Presentation",
   "Mode": "Default",
@@ -16,6 +16,25 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\banks.html",
+      "SourceId": "AzShipping.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\",
+      "BasePath": "_content/AzShipping.Presentation",
+      "RelativePath": "banks.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\banks.html"
+    },
     {
       "Identity": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\carriertypes.html",
       "SourceId": "AzShipping.Presentation",

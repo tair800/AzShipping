@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\banks.html",
+      "PackagePath": "staticwebassets\\banks.html"
+    },
+    {
       "Id": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\wwwroot\\carriertypes.html",
       "PackagePath": "staticwebassets\\carriertypes.html"
     },

@@ -443,6 +443,7 @@ public static class DatabaseSeeder
         }
 
         SeedCarrierTypes(context);
+        SeedBanks(context);
     }
 
     private static void SeedCarrierTypes(ApplicationDbContext context)
@@ -637,6 +638,32 @@ public static class DatabaseSeeder
         }
 
         return loadingMethod;
+    }
+
+    private static void SeedBanks(ApplicationDbContext context)
+    {
+        if (!context.Banks.Any())
+        {
+            var banks = new List<Bank>
+            {
+                new Bank
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "ASC XALQ Bankı",
+                    Branch = "Gusar branch",
+                    Code = "510233",
+                    Swift = "HAJCAZ22XXX",
+                    Country = "Azerbaijan",
+                    City = "Gusar",
+                    Address = "Азербайджан, Gusar, F.Musayev srt., 68",
+                    PostCode = "AZ 3800",
+                    CreatedAt = DateTime.UtcNow
+                }
+            };
+
+            context.Banks.AddRange(banks);
+            context.SaveChanges();
+        }
     }
 }
 

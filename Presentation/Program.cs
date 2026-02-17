@@ -52,6 +52,7 @@ builder.Services.AddScoped<IRequestPurposeRepository, RequestPurposeRepository>(
 builder.Services.AddScoped<IDrivingLicenceCategoryRepository, DrivingLicenceCategoryRepository>();
 builder.Services.AddScoped<IWorkerPostRepository, WorkerPostRepository>();
 builder.Services.AddScoped<ICarrierTypeRepository, CarrierTypeRepository>();
+builder.Services.AddScoped<IBankRepository, BankRepository>();
 
 // Register services
 builder.Services.AddScoped<IClientSegmentService, ClientSegmentService>();
@@ -66,6 +67,7 @@ builder.Services.AddScoped<IRequestPurposeService, RequestPurposeService>();
 builder.Services.AddScoped<IDrivingLicenceCategoryService, DrivingLicenceCategoryService>();
 builder.Services.AddScoped<IWorkerPostService, WorkerPostService>();
 builder.Services.AddScoped<ICarrierTypeService, CarrierTypeService>();
+builder.Services.AddScoped<BankService>();
 
 var app = builder.Build();
 
@@ -171,6 +173,23 @@ using (var scope = app.Services.CreateScope())
                 ""IsActive"" BOOLEAN NOT NULL,
                 ""Colour"" VARCHAR(7) NOT NULL,
                 ""IsDefault"" BOOLEAN NOT NULL,
+                ""CreatedAt"" TIMESTAMP NOT NULL,
+                ""UpdatedAt"" TIMESTAMP
+            );
+        ");
+        
+        context.Database.ExecuteSqlRaw(@"
+            CREATE TABLE IF NOT EXISTS ""Banks"" (
+                ""Id"" UUID PRIMARY KEY,
+                ""Name"" VARCHAR(200) NOT NULL,
+                ""UnofficialName"" VARCHAR(200),
+                ""Branch"" VARCHAR(200),
+                ""Code"" VARCHAR(50),
+                ""Swift"" VARCHAR(50),
+                ""Country"" VARCHAR(100),
+                ""City"" VARCHAR(100),
+                ""Address"" VARCHAR(500),
+                ""PostCode"" VARCHAR(20),
                 ""CreatedAt"" TIMESTAMP NOT NULL,
                 ""UpdatedAt"" TIMESTAMP
             );

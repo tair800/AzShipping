@@ -27,6 +27,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<WorkerPost> WorkerPosts { get; set; }
     public DbSet<WorkerPostTranslation> WorkerPostTranslations { get; set; }
     public DbSet<CarrierType> CarrierTypes { get; set; }
+    public DbSet<Bank> Banks { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -176,6 +177,21 @@ public class ApplicationDbContext : DbContext
             entity.Property(e => e.LanguageCode).IsRequired().HasMaxLength(10);
             entity.Property(e => e.Name).IsRequired().HasMaxLength(200);
             entity.HasIndex(e => new { e.WorkerPostId, e.LanguageCode }).IsUnique();
+        });
+
+        modelBuilder.Entity<Bank>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Name).IsRequired().HasMaxLength(200);
+            entity.Property(e => e.UnofficialName).HasMaxLength(200);
+            entity.Property(e => e.Branch).HasMaxLength(200);
+            entity.Property(e => e.Code).HasMaxLength(50);
+            entity.Property(e => e.Swift).HasMaxLength(50);
+            entity.Property(e => e.Country).HasMaxLength(100);
+            entity.Property(e => e.City).HasMaxLength(100);
+            entity.Property(e => e.Address).HasMaxLength(500);
+            entity.Property(e => e.PostCode).HasMaxLength(20);
+            entity.Property(e => e.CreatedAt).IsRequired();
         });
     }
 }

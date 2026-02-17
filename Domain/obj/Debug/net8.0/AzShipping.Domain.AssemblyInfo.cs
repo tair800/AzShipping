@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AzShipping.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a0b211cb1915659fd79f994662cdc43cd6a28594")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c232db9bac20037574f77a6983c826ecd51d9f0e")]
 [assembly: System.Reflection.AssemblyProductAttribute("AzShipping.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AzShipping.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

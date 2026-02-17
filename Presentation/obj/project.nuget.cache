@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ibxmRP/r7ak=",
+  "dgSpecHash": "VfByAfxHp5g=",
   "success": true,
   "projectFilePath": "C:\\Users\\taira\\OneDrive\\Desktop\\AzShipping\\Presentation\\AzShipping.Presentation.csproj",
   "expectedPackageFiles": [
@@ -30,6 +30,7 @@
     "C:\\Users\\taira\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512",
     "C:\\Users\\taira\\.nuget\\packages\\microsoft.openapi\\1.4.3\\microsoft.openapi.1.4.3.nupkg.sha512",
     "C:\\Users\\taira\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\taira\\.nuget\\packages\\nager.country\\4.4.0\\nager.country.4.4.0.nupkg.sha512",
     "C:\\Users\\taira\\.nuget\\packages\\npgsql\\8.0.0\\npgsql.8.0.0.nupkg.sha512",
     "C:\\Users\\taira\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\8.0.0\\npgsql.entityframeworkcore.postgresql.8.0.0.nupkg.sha512",
     "C:\\Users\\taira\\.nuget\\packages\\swashbuckle.aspnetcore\\6.4.0\\swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
