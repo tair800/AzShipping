@@ -1,0 +1,27 @@
+namespace Request.Application.DTOs.Sale;
+
+public record CreateSaleDto(
+    string RequestNumber,
+    bool HasSea = false,
+    bool HasAir = false,
+    bool HasRail = false,
+    bool HasRoad = false,
+    Guid? ClientId = null,
+    string? ClientName = null,
+    string? SubType = null,
+    Guid? CarrierId = null,
+    string? CarrierName = null,
+    Guid? SaleStatusId = null,
+    DateTime? StartDate = null,
+    DateTime? ExpirationDate = null,
+    string? CargoName = null,
+    decimal? CargoVolume = null,
+    decimal? CargoWeight = null,
+    string? CargoSize = null,
+    string? LoadingPlace = null,
+    string? UnloadingPlace = null,
+    decimal? DealValue = null,
+    string? DealValueCurrency = null,
+    string? ManagerSellerName = null,
+    string? PriceProposal = null,
+    string SaleListStatus = "Active");

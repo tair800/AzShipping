@@ -1,0 +1,27 @@
+namespace Request.Application.DTOs.PriceProposal;
+
+public record UpdatePriceProposalDto(
+    string? Type = null,
+    string? TemplateName = null,
+    Guid? CarrierId = null,
+    string? CarrierName = null,
+    string? TypeOfService = null,
+    string? Name = null,
+    decimal? ClientPrice = null,
+    decimal? ClientPriceWithVat = null,
+    Guid? ClientVatRateId = null,
+    string? ClientVatRateCode = null,
+    Guid? ClientCurrencyId = null,
+    string? ClientCurrencyCode = null,
+    bool? SeparateLineInInvoice = null,
+    decimal? CarrierRate = null,
+    decimal? CarrierRateWithVat = null,
+    Guid? CarrierVatRateId = null,
+    string? CarrierVatRateCode = null,
+    Guid? CarrierCurrencyId = null,
+    string? CarrierCurrencyCode = null,
+    decimal? Expense = null,
+    decimal? Profit = null,
+    string? Route = null,
+    string? Comments = null,
+    IReadOnlyList<CreatePriceProposalCargoDto>? CargoItems = null);

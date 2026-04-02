@@ -1,0 +1,41 @@
+namespace Request.Application.DTOs.PriceProposal;
+
+public record PriceProposalDto(
+    Guid Id,
+    Guid RequestId,
+    string Type,
+    string? TemplateName,
+    Guid? CarrierId,
+    string? CarrierName,
+    string? TypeOfService,
+    string Name,
+    decimal? ClientPrice,
+    decimal? ClientPriceWithVat,
+    Guid? ClientVatRateId,
+    string? ClientVatRateCode,
+    Guid? ClientCurrencyId,
+    string? ClientCurrencyCode,
+    bool SeparateLineInInvoice,
+    decimal? CarrierRate,
+    decimal? CarrierRateWithVat,
+    Guid? CarrierVatRateId,
+    string? CarrierVatRateCode,
+    Guid? CarrierCurrencyId,
+    string? CarrierCurrencyCode,
+    decimal? Expense,
+    decimal? Profit,
+    string? Route,
+    string? Comments,
+    DateTime CreatedAt,
+    Guid? UserId,
+    string? UserName,
+    IReadOnlyList<PriceProposalCargoDto> CargoItems);
+
+public record PriceProposalCargoDto(
+    Guid Id,
+    Guid PriceProposalId,
+    string? Description,
+    int? Quantity,
+    string? PackageType,
+    bool IncludeInsurance,
+    string? DescriptionOfGoods);

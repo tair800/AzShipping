@@ -1,0 +1,28 @@
+namespace Request.Application.DTOs.Sale;
+
+public record UpdateSaleDto(
+    string RequestNumber,
+    bool HasSea,
+    bool HasAir,
+    bool HasRail,
+    bool HasRoad,
+    Guid? ClientId,
+    string? ClientName,
+    string? SubType,
+    Guid? CarrierId,
+    string? CarrierName,
+    Guid? SaleStatusId,
+    DateTime? StartDate,
+    DateTime? ExpirationDate,
+    string? CargoName,
+    decimal? CargoVolume,
+    decimal? CargoWeight,
+    string? CargoSize,
+    string? LoadingPlace,
+    string? UnloadingPlace,
+    decimal? DealValue,
+    string? DealValueCurrency,
+    string? ManagerSellerName,
+    string? PriceProposal,
+    string SaleListStatus,
+    bool IsActive);

@@ -1,0 +1,57 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "Accounting.Domain/1.0.0": {
+        "dependencies": {
+          "Azshipping.Auth": "1.0.0",
+          "MrStyx.Domain": "1.0.0"
+        },
+        "runtime": {
+          "Accounting.Domain.dll": {}
+        }
+      },
+      "Azshipping.Auth/1.0.0": {
+        "runtime": {
+          "lib/net10.0/Azshipping.Auth.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "MrStyx.Domain/1.0.0": {
+        "runtime": {
+          "lib/net10.0/MrStyx.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Accounting.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Azshipping.Auth/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5ZTCpmtVg94lUxHY3mEEsLIWy01x4LpWqay5CKU3W/gZtgE6Q5zwf5FlQzpoDSVXEBjXEnxk1oI5T03FW39STw==",
+      "path": "azshipping.auth/1.0.0",
+      "hashPath": "azshipping.auth.1.0.0.nupkg.sha512"
+    },
+    "MrStyx.Domain/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-z/mQNy7S6bOnzVPOpkz6r3AWrghUF6THj5TQ+fS/TkpZOMohfWraIJWUQ3K84H3RyK9Z6wm0KZp9nxis5aMhwA==",
+      "path": "mrstyx.domain/1.0.0",
+      "hashPath": "mrstyx.domain.1.0.0.nupkg.sha512"
+    }
+  }
+}
