@@ -1,5 +1,7 @@
 # AzShipping API - Quick Reference
 
+> **Deprecated:** Quick reference for the **removed** monolith on port **5062**. Current reference data: **Settings.API** http://localhost:5064/swagger.
+
 ## Base URL
 ```
 http://localhost:5062/api

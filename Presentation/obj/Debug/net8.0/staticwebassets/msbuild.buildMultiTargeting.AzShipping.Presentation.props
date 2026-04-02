@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\AzShipping.Presentation.props" />
-</Project>

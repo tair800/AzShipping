@@ -1,5 +1,7 @@
 # AzShipping API Documentation
 
+> **Deprecated:** This document describes the **removed** monolith API (`http://localhost:5062`). Use **Settings.API** at http://localhost:5064/swagger and **docs/FRONTEND-INTEGRATION.md** for current APIs.
+
 ## Base URL
 ```
 http://localhost:5062/api

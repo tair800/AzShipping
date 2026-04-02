@@ -1,10 +1,12 @@
 # AzShipping Setup Guide
 
-Complete setup guide for the AzShipping application.
+> **Note:** The legacy monolith (root `Application`, `Domain`, `Infrastructure`, `Presentation`) was removed. Run **microservices** under `services/`; see **README.md** (`AzShipping.Microservices.sln`, e.g. Settings on **5064**, frontend **5080**).
+
+Complete setup guide for PostgreSQL and local development. Reference data is served by **Settings.API** (`SettingsDb`).
 
 ## Prerequisites
 
-1. **.NET 8.0 SDK** - Download from https://dotnet.microsoft.com/download
+1. **.NET SDK** (see **README.md** for version, e.g. .NET 10) - https://dotnet.microsoft.com/download
 2. **PostgreSQL** - Download from https://www.postgresql.org/download/
 
 ## PostgreSQL Installation
@@ -72,141 +74,61 @@ psql -U postgres -d AzShippingDb -h localhost
 # Enter password when prompted
 ```
 
-### 3. Configure Connection String
+### 3. Create service databases
 
-Update `Presentation/appsettings.json`:
+Create databases your services expect (see **README.md**). At minimum for reference data:
+
+```sql
+CREATE DATABASE "SettingsDb";
+```
+
+You can still use **`AzShippingDb`** for local experiments; **Settings.API** defaults to **`SettingsDb`** in its `appsettings.json`.
+
+### 4. Configure connection strings (microservices)
+
+Each API has `appsettings.json` under `services/<Area>/<Name>.API/`. For **Settings.API**, set PostgreSQL to match `SettingsDb`:
 
 ```json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Host=localhost;Port=5432;Database=AzShippingDb;Username=postgres;Password=YOUR_PASSWORD"
+    "DefaultConnection": "Host=localhost;Port=5432;Database=SettingsDb;Username=postgres;Password=YOUR_PASSWORD"
   }
 }
 ```
 
-**Default settings:**
-- Host: `localhost`
-- Port: `5432`
-- Database: `AzShippingDb`
-- Username: `postgres`
-- Password: (set during PostgreSQL installation)
+**Alternative: environment variable** (if the service supports it):
 
-**Alternative: Use Environment Variable**
 ```powershell
-# Windows PowerShell
-$env:DATABASE_URL="Host=localhost;Port=5432;Database=AzShippingDb;Username=postgres;Password=YOUR_PASSWORD"
-
-# Linux/Mac
-export DATABASE_URL="Host=localhost;Port=5432;Database=AzShippingDb;Username=postgres;Password=YOUR_PASSWORD"
+$env:DATABASE_URL="Host=localhost;Port=5432;Database=SettingsDb;Username=postgres;Password=YOUR_PASSWORD"
 ```
 
-The application will use `DATABASE_URL` if `ConnectionStrings:DefaultConnection` is not set.
+## Running the application
 
-## Running the Application
+### 1. Start PostgreSQL
 
-### 1. Start PostgreSQL Service
+Same as above (Windows Services, `pg_ctl`, `systemctl`, or `brew services`).
 
-**Windows:**
-- Check Services (services.msc) → PostgreSQL service should be running
-- Or use: `pg_ctl start`
+### 2. Run services
 
-**Linux/Mac:**
-```bash
-sudo systemctl start postgresql  # Linux
-brew services start postgresql    # Mac
-```
-
-### 2. Run the Application
+From the repo root, see **README.md** for the full list. For reference data only:
 
 ```bash
-cd Presentation
-dotnet run
+dotnet run --project services/Settings/Settings.API/Settings.API.csproj
 ```
 
-Or from the root directory:
-```bash
-dotnet run --project Presentation/AzShipping.Presentation.csproj
-```
+- Swagger (Development): http://localhost:5064/swagger  
 
-### 3. What Happens on First Run
+### 3. First run (Settings.API)
 
-- Database tables are automatically created (via `ExecuteSqlRaw` in `Program.cs`)
-- Initial seed data is inserted (if tables are empty)
-- Application starts on `http://localhost:5062` (or configured port)
+- EF migrations apply to the configured database  
+- Seed runs according to that service’s startup logic  
 
-## Verifying Setup
+## Verifying setup
 
-### Method 1: Check Application UI
+1. Open http://localhost:5064/swagger and call list endpoints (e.g. client segments, packagings).  
+2. In pgAdmin, inspect **SettingsDb** → **public** tables after the API has started.  
 
-1. Open browser: http://localhost:5062
-2. Navigate through pages:
-   - Client Segments - should show 3 segments
-   - Request Sources - should show 7 sources
-   - Packagings - should show 5 packagings
-   - Users - should show 8 users
-   - Sales Funnel Status - should show 6 statuses
-   - Transport Types - should show 15 types
-
-### Method 2: Use pgAdmin
-
-1. Open pgAdmin
-2. Connect to server (localhost)
-3. Expand: Servers → PostgreSQL → Databases → AzShippingDb → Schemas → public → Tables
-4. Right-click any table → View/Edit Data → All Rows
-5. Verify seeded data exists
-
-### Method 3: Use SQL Queries
-
-**In pgAdmin Query Tool:**
-```sql
--- Count records in each table
-SELECT 'ClientSegments' as TableName, COUNT(*) as Count FROM "ClientSegments"
-UNION ALL
-SELECT 'RequestSources', COUNT(*) FROM "RequestSources"
-UNION ALL
-SELECT 'Packagings', COUNT(*) FROM "Packagings"
-UNION ALL
-SELECT 'Users', COUNT(*) FROM "Users"
-UNION ALL
-SELECT 'SalesFunnelStatuses', COUNT(*) FROM "SalesFunnelStatuses"
-UNION ALL
-SELECT 'TransportTypes', COUNT(*) FROM "TransportTypes";
-
--- View sample data
-SELECT * FROM "ClientSegments";
-SELECT "FirstName", "LastName", "Email" FROM "Users";
-```
-
-**Expected Results:**
-- ✅ **3** Client Segments
-- ✅ **7** Request Sources
-- ✅ **5** Packagings (+ translations)
-- ✅ **8** Users
-- ✅ **6** Sales Funnel Statuses (+ translations)
-- ✅ **15** Transport Types (+ translations)
-
-## Database Schema
-
-The following tables are automatically created:
-
-- **ClientSegments** - Client segment data
-- **RequestSources** - Request source data
-- **Packagings** - Packaging types
-- **PackagingTranslations** - Packaging translations
-- **Users** - User data
-- **SalesFunnelStatuses** - Sales funnel status data
-- **SalesFunnelStatusTranslations** - Sales funnel status translations
-- **TransportTypes** - Transport type data
-- **TransportTypeTranslations** - Transport type translations
-- **LoadingMethods** - Loading method data
-- **LoadingMethodTranslations** - Loading method translations
-- **DeferredPaymentConditions** - Deferred payment conditions
-- **RequestPurposes** - Request purposes
-- **DrivingLicenceCategories** - Driving licence categories
-- **WorkerPosts** - Worker posts
-- **WorkerPostTranslations** - Worker post translations
-- **CarrierTypes** - Carrier types
-- **Banks** - Bank information
+For frontend and proxy behavior, see **docs/FRONTEND-INTEGRATION.md**.
 
 ## Troubleshooting
 
@@ -223,7 +145,7 @@ The following tables are automatically created:
    # Or check Services (services.msc)
    ```
 
-2. Check connection string in `appsettings.json`
+2. Check connection string in the failing API’s `appsettings.json` (or user secrets / env)
 3. Verify database exists:
    ```sql
    psql -U postgres -l
@@ -254,13 +176,13 @@ GRANT ALL PRIVILEGES ON DATABASE "AzShippingDb" TO postgres;
 
 ### Tables Not Created
 
-**Symptoms:** Application runs but tables don't exist
+**Symptoms:** API runs but tables don't exist
 
 **Solutions:**
-1. Check application logs for errors
-2. Verify database connection is working
-3. Check `Program.cs` - `ExecuteSqlRaw` commands should run
-4. Manually verify database exists and is accessible
+1. Check API logs for migration errors
+2. Verify database connection and database name match `appsettings.json`
+3. Ensure the service runs migrations on startup (see that API’s `Program.cs`)
+4. Manually verify the database exists and is reachable with `psql`
 
 ### Seed Data Missing
 
@@ -273,7 +195,7 @@ GRANT ALL PRIVILEGES ON DATABASE "AzShippingDb" TO postgres;
    DROP DATABASE "AzShippingDb";
    CREATE DATABASE "AzShippingDb";
    ```
-3. Restart application
+3. Restart the API
 
 ### psql Command Not Found
 
@@ -290,26 +212,19 @@ GRANT ALL PRIVILEGES ON DATABASE "AzShippingDb" TO postgres;
    - Restart terminal
 3. Use pgAdmin GUI instead
 
-## API Documentation
+## API documentation
 
-- **Swagger UI:** http://localhost:5062/swagger (when running in Development mode)
-- See `API_DOCUMENTATION.md` for detailed API documentation
-- See `API_QUICK_REFERENCE.md` for quick API reference
+- **Settings.API Swagger:** http://localhost:5064/swagger (Development)  
+- **`API_DOCUMENTATION.md` / `API_QUICK_REFERENCE.md`** describe the **removed** monolith on port 5062; use Swagger and **docs/FRONTEND-INTEGRATION.md** for current contracts.
 
-## Development Notes
+## Development notes
 
-- Tables are created automatically via `ExecuteSqlRaw` in `Program.cs`
-- Seed data is inserted by `DatabaseSeeder.Seed()` method
-- Application uses Entity Framework Core with PostgreSQL
-- All tables use UUID for primary keys
-- Translation tables support multi-language content
+- Each service owns its DbContext, migrations, and seeding  
+- EF Core + PostgreSQL; schemas differ per service database  
 
-## Next Steps
+## Next steps
 
-1. ✅ Database is set up and running
-2. ✅ Application is running
-3. ✅ Seed data is loaded
-4. 🚀 Start using the application!
-
-For API usage, see `API_DOCUMENTATION.md` and `API_QUICK_REFERENCE.md`.
+1. PostgreSQL running and databases created  
+2. Run the services you need (see **README.md**)  
+3. Use Swagger per service for exploration  
 
