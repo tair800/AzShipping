@@ -75,7 +75,6 @@ nunit-*.xml
 **/uploads/**
 
 # Local-only folders (not part of the repo)
-Azshipping-Identity/
 frontend/
 docs/
 
