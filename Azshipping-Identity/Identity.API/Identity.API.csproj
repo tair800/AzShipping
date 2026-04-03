@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+	<!--<UserSecretsId>e78d0527-94c9-4a24-8837-f61b72e5472a</UserSecretsId>-->
+	  <!--Main PC-->
+	<!--<UserSecretsId>e040a299-c005-4482-b00d-bf5a4433fd91</UserSecretsId>-->
+	  <!--Work PC-->
+	  
+    <UserSecretsId>Azshipping-Secrets</UserSecretsId>
+	  <!--Tair-->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.3" />
+	<PackageReference Include="MrStyx.API" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Identity.Application\Identity.Application.csproj" />
+    <ProjectReference Include="..\Identity.Infrastructure\Identity.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
