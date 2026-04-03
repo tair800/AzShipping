@@ -1,3 +1,4 @@
+using System.Linq;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using MimeKit;
@@ -37,7 +38,12 @@ internal static class SmtpKitHelper
         await client.ConnectAsync(account.SmtpHost.Trim(), account.SmtpPort, security, cancellationToken);
 
         if (!account.WithoutPassword)
-            await client.AuthenticateAsync(GetAuthUser(account), passwordPlain!, cancellationToken);
+        {
+            var pwd = passwordPlain is null
+                ? string.Empty
+                : new string(passwordPlain.Where(c => !char.IsWhiteSpace(c)).ToArray());
+            await client.AuthenticateAsync(GetAuthUser(account), pwd, cancellationToken);
+        }
 
         await client.SendAsync(message, cancellationToken);
         await client.DisconnectAsync(true, cancellationToken);

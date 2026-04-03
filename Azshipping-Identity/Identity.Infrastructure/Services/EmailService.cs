@@ -1,5 +1,6 @@
 using System.Net.Http.Json;
 using System.Text.Json;
+using System.Linq;
 using Identity.Application.Interfaces.Services;
 using Identity.Infrastructure.Options;
 using MailKit.Net.Smtp;
@@ -53,9 +54,14 @@ public sealed class EmailService(
     {
         if (_settings.UseSystemEmailMailbox && !string.IsNullOrWhiteSpace(_settings.SystemEmailSendApiKey))
         {
+            logger.LogInformation(
+                "Email: trying Settings relay ({BaseUrl}) for {To}",
+                _settings.BaseUrl,
+                to);
             try
             {
                 await SendViaSettingsSystemMailboxAsync(to, subject, body, cancellationToken);
+                logger.LogInformation("Email: Settings relay succeeded for {To}", to);
                 return;
             }
             catch (Exception ex)
@@ -66,7 +72,9 @@ public sealed class EmailService(
             }
         }
 
+        logger.LogInformation("Email: sending via direct SMTP to {To} (host {Host})", to, _options.Host);
         await SendDirectSmtpAsync(to, subject, body, cancellationToken);
+        logger.LogInformation("Email: direct SMTP finished for {To}", to);
     }
 
     private async Task SendViaSettingsSystemMailboxAsync(string to, string subject, string body, CancellationToken cancellationToken)
@@ -104,7 +112,21 @@ public sealed class EmailService(
             cancellationToken);
 
         if (!string.IsNullOrWhiteSpace(_options.Username))
-            await smtpClient.AuthenticateAsync(_options.Username, _options.Password ?? "", cancellationToken);
+        {
+            // Gmail app passwords are 16 characters; Google shows them with spaces — SMTP auth expects no spaces.
+            var password = new string(
+                (_options.Password ?? string.Empty).Where(c => !char.IsWhiteSpace(c)).ToArray());
+            if (password.Length == 0)
+            {
+                logger.LogWarning(
+                    "Email:Password is missing. Set user secret Email:Password (Gmail: 2-Step Verification → App passwords) or env Email__Password. Username={Username}",
+                    _options.Username);
+                throw new InvalidOperationException(
+                    "Email:Password is not configured. For Gmail use an App Password for the same account as Email:Username (dotnet user-secrets set \"Email:Password\" \"...\" from Identity.API folder).");
+            }
+
+            await smtpClient.AuthenticateAsync(_options.Username, password, cancellationToken);
+        }
 
         await smtpClient.SendAsync(message, cancellationToken);
         await smtpClient.DisconnectAsync(true, cancellationToken);
