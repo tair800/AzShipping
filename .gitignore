@@ -78,6 +78,9 @@ nunit-*.xml
 frontend/
 docs/
 
+# AzShipping.Contracts — shared contracts / local package (not tracked)
+AzShipping.Contracts/
+
 # Build Results of an ATL Project
 [Dd]ebugPS/
 [Rr]eleasePS/

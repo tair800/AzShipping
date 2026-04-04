@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using MrStyx.API.Extensions;
 using Microsoft.AspNetCore.Authorization;
+using Accounting.API.Authorization;
 using Accounting.API.Extensions;
 using Accounting.Application.Extensions;
 using Accounting.Infrastructure.Extensions;
@@ -14,8 +15,9 @@ using Microsoft.Extensions.Logging;
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddUserSecrets(Assembly.GetExecutingAssembly(), optional: true);
 
-builder.Services.AddControllers().AddJsonOptions(o =>
-    o.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase);
+builder.Services.AddControllers(o => o.Filters.Add<DocumentsErpPermissionFilter>())
+    .AddJsonOptions(o =>
+        o.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddProjectVersioning();
 builder.Services.AddCustomSwaggerGen(builder.Configuration);

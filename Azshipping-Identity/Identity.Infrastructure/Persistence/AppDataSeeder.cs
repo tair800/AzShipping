@@ -23,6 +23,8 @@ public static class AppDataSeeder
 
         await AdminSeeder(context, passwordService);
 
+        await ErpTestRequestViewerSeeder(context, passwordService);
+
         await context.SaveChangesAsync();
     }
 
@@ -82,5 +84,34 @@ public static class AppDataSeeder
 
             context.Users.Add(admin);
         }
+    }
+
+    private static async Task ErpTestRequestViewerSeeder(AppDbContext context, IPasswordService passwordService)
+    {
+        if (await context.Users.AsNoTracking().AnyAsync(u => u.Username.Value == ErpTestRequestViewer.Username))
+            return;
+
+        var passwordVO = PasswordHash.Create(passwordService.HashPassword(ErpTestRequestViewer.Password));
+        var usernameVO = Username.Create(ErpTestRequestViewer.Username);
+        var emailVO = Email.Create(ErpTestRequestViewer.Email);
+
+        var user = User.Create(usernameVO, passwordVO, null, emailVO, null, new List<long> { 1 });
+        user.ApplyExtendedProfile(
+            companyId: null,
+            departmentId: null,
+            workerPostId: null,
+            employeeGroupIds: [ErpTestRequestViewer.EmployeeGroupId],
+            employeePrefix: null,
+            unlimitedAccess: false,
+            isEmployee: true,
+            accessSince: DateTime.UtcNow,
+            additionalEmails: [],
+            additionalPhones: [],
+            fax: null,
+            skype: null,
+            sipNumber: null);
+        user.Activate();
+
+        context.Users.Add(user);
     }
 }

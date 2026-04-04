@@ -38,6 +38,7 @@ public static class ServiceCollectionExtension
         services.AddHttpClient();
         services.AddHttpClient("SettingsEmailRelay", client => client.Timeout = TimeSpan.FromSeconds(90));
         services.AddScoped<SettingsCatalogHttpReader>();
+        services.AddScoped<IEmailSettingsMailboxLinker, EmailSettingsMailboxLinker>();
         services.AddScoped<IGeneralEmployeeProvisioningService, GeneralEmployeeProvisioningService>();
         services.AddScoped<IUserDtoEnrichmentService, UserDtoEnrichmentService>();
         services.AddScoped<ILicensingService, LicensingService>();

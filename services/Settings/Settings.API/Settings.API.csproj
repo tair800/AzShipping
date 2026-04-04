@@ -17,7 +17,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.3" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\shared\AzShipping.ApiSecurity\AzShipping.ApiSecurity.csproj" />
     <ProjectReference Include="..\Settings.Application\Settings.Application.csproj" />
+    <ProjectReference Include="..\Settings.Domain\Settings.Domain.csproj" />
     <ProjectReference Include="..\Settings.Infrastructure\Settings.Infrastructure.csproj" />
   </ItemGroup>
 </Project>

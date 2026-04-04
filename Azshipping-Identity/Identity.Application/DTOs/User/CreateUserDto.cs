@@ -36,5 +36,8 @@ public record CreateUserDto
     string? SipNumber = null,
 
     /// <summary>When true, user is activated immediately (subject to license cap).</summary>
-    bool ActivateImmediately = false
+    bool ActivateImmediately = false,
+
+    /// <summary>Optional Settings email-settings row to bind to the new user (<c>PATCH .../link-identity-user</c>).</summary>
+    Guid? LinkMailboxEmailSettingId = null
 );

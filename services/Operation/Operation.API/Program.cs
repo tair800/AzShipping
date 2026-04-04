@@ -1,6 +1,7 @@
 using System.Reflection;
 using AzShipping.ApiSecurity;
 using Microsoft.AspNetCore.Authorization;
+using Operation.API.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using MrStyx.API.Extensions;
@@ -13,8 +14,9 @@ using Operation.Infrastructure.Persistence.Seed;
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddUserSecrets(Assembly.GetExecutingAssembly(), optional: true);
 
-builder.Services.AddControllers().AddJsonOptions(o =>
-    o.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase);
+builder.Services.AddControllers(o => o.Filters.Add<OrderErpPermissionFilter>())
+    .AddJsonOptions(o =>
+        o.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddProjectVersioning();
 builder.Services.AddCustomSwaggerGen(builder.Configuration);

@@ -9,6 +9,7 @@ using Settings.Application.Features.EmailSettings.Commands.Create;
 using Settings.Application.Features.EmailSettings.Commands.Delete;
 using Settings.Application.Features.EmailSettings.Commands.SendSystem;
 using Settings.Application.Features.EmailSettings.Commands.TestMailbox;
+using Settings.Application.Features.EmailSettings.Commands.LinkIdentityUser;
 using Settings.Application.Features.EmailSettings.Commands.Update;
 using Settings.Application.Features.EmailSettings.Queries.GetAll;
 using Settings.Application.Features.EmailSettings.Queries.GetById;
@@ -38,6 +39,21 @@ public sealed class EmailSettingsController(IMediator mediator, IOptions<EmailSy
         {
             var result = await mediator.Send(new CreateEmailSettingCommand(dto), ct);
             return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    /// <summary>Bind or clear <see cref="EmailSettingDetailDto.IdentityUserId"/> without resubmitting SMTP fields (Identity user create / admin UI).</summary>
+    [HttpPatch("{id:guid}/link-identity-user")]
+    public async Task<IActionResult> LinkIdentityUser(Guid id, [FromBody] LinkIdentityUserToEmailSettingDto dto, CancellationToken ct)
+    {
+        try
+        {
+            var result = await mediator.Send(new LinkIdentityUserToEmailSettingCommand(id, dto), ct);
+            return result == null ? NotFound() : Ok(result);
         }
         catch (InvalidOperationException ex)
         {

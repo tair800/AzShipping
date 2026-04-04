@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\shared\AzShipping.ApiSecurity\AzShipping.ApiSecurity.csproj" />
+    <ProjectReference Include="..\General.Domain\General.Domain.csproj" />
     <ProjectReference Include="..\General.Application\General.Application.csproj" />
     <ProjectReference Include="..\General.Infrastructure\General.Infrastructure.csproj" />
   </ItemGroup>

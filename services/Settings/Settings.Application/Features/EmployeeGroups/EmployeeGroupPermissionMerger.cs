@@ -5,8 +5,6 @@ namespace Settings.Application.Features.EmployeeGroups;
 /// <summary>Merges several employee-group <c>PermissionsJson</c> blobs (union: booleans OR, strings pick most permissive) and flattens to JWT claim values.</summary>
 public static class EmployeeGroupPermissionMerger
 {
-    private static readonly string[] AccessRank = ["", "none", "own", "all"];
-
     public static IReadOnlyList<string> MergeAndFlatten(IReadOnlyList<string> permissionsJsonBlobs)
     {
         JsonNode? merged = null;
@@ -67,6 +65,7 @@ public static class EmployeeGroupPermissionMerger
         return b.DeepClone();
     }
 
+    /// <summary>ERP &quot;Access to&quot; dropdown ranks: none &lt; own &lt; ownDepartment &lt; all.</summary>
     private static string MorePermissiveAccess(string a, string b)
     {
         static int Score(string v)
@@ -77,7 +76,8 @@ public static class EmployeeGroupPermissionMerger
                 "" => 0,
                 "none" => 1,
                 "own" => 2,
-                "all" => 3,
+                "owndepartment" => 3,
+                "all" => 4,
                 _ => 1
             };
         }

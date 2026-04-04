@@ -1,9 +1,11 @@
 using System.Reflection;
+using AzShipping.ApiSecurity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Settings.Application.Extensions;
 using Settings.Infrastructure.Extensions;
 using Settings.Infrastructure.Logging;
+using Settings.API.Authorization;
 using Settings.API.Extensions;
 using Settings.API.Options;
 using MrStyx.API.Extensions;
@@ -23,7 +25,8 @@ builder.Host.UseSerilog((context, services, config) =>
 });
 
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddControllers().AddJsonOptions(o => o.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase);
+builder.Services.AddControllers(o => o.Filters.Add<SettingsErpPermissionFilter>())
+    .AddJsonOptions(o => o.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddProjectVersioning();
 builder.Services.AddCustomSwaggerGen(builder.Configuration);
@@ -39,6 +42,7 @@ builder.Services.AddAuthorization(options =>
         .Build();
 });
 builder.Services.AddCors(o => o.AddPolicy("AllowAll", p => p.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
+builder.Services.AddErpModuleAccess(builder.Configuration);
 
 Console.WriteLine("[Settings] Building application...");
 var app = builder.Build();
@@ -69,6 +73,7 @@ catch (Exception ex)
 app.UseCustomSwagger("Settings");
 app.UseCors("AllowAll");
 app.UseAuthentication();
+app.UseErpModuleAccess();
 app.UseAuthorization();
 app.MapControllers();
 app.MapGet("/", () => Results.Redirect("/swagger"))

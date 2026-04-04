@@ -1,5 +1,6 @@
 using System.Reflection;
 using AzShipping.ApiSecurity;
+using General.API.Authorization;
 using General.Application.Extensions;
 using General.Infrastructure.Extensions;
 using General.Infrastructure.Persistence;
@@ -15,7 +16,12 @@ builder.Configuration.AddUserSecrets(Assembly.GetExecutingAssembly(), optional: 
 builder.Services.AddHttpContextAccessor();
 builder.Services.Configure<Microsoft.AspNetCore.Http.Features.FormOptions>(o =>
     o.MultipartBodyLengthLimit = 52_428_800);
-builder.Services.AddControllers().AddJsonOptions(o => o.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase);
+builder.Services.AddControllers(o =>
+    {
+        o.Filters.Add<TaskErpPermissionFilter>();
+        o.Filters.Add<CalculationErpPermissionFilter>();
+    })
+    .AddJsonOptions(o => o.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddProjectVersioning();
 builder.Services.AddCustomSwaggerGen(builder.Configuration);
@@ -29,6 +35,7 @@ builder.Services.AddAuthorization(options =>
         .Build();
 });
 builder.Services.AddCors(o => o.AddPolicy("AllowAll", p => p.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
+builder.Services.AddErpModuleAccess(builder.Configuration);
 
 var app = builder.Build();
 

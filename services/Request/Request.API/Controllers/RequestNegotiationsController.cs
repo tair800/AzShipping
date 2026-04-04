@@ -1,5 +1,4 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Request.Application.DTOs.RequestNegotiation;
 using Request.Application.Features.RequestNegotiations.Commands.Create;

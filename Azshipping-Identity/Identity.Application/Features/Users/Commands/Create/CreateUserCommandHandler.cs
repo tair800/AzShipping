@@ -21,6 +21,7 @@ public sealed class CreateUserCommandHandler
     ILicensingService licensingService,
     IUserDtoEnrichmentService userDtoEnrichmentService,
     IGeneralEmployeeProvisioningService generalEmployeeProvisioning,
+    IEmailSettingsMailboxLinker emailSettingsMailboxLinker,
     ILogger<CreateUserCommandHandler> logger
 
 ) : IRequestHandler<CreateUserCommand, UserDto>
@@ -32,6 +33,7 @@ public sealed class CreateUserCommandHandler
     private readonly ILicensingService _licensingService = licensingService;
     private readonly IUserDtoEnrichmentService _userDtoEnrichmentService = userDtoEnrichmentService;
     private readonly IGeneralEmployeeProvisioningService _generalEmployeeProvisioning = generalEmployeeProvisioning;
+    private readonly IEmailSettingsMailboxLinker _emailSettingsMailboxLinker = emailSettingsMailboxLinker;
     private readonly ILogger<CreateUserCommandHandler> _logger = logger;
 
     public async Task<UserDto> Handle(CreateUserCommand request, CancellationToken cancellationToken)
@@ -98,6 +100,16 @@ public sealed class CreateUserCommandHandler
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         _logger.LogInformation("CreateUser handler: saved UserId={UserId}", createdUser.Id);
+
+        if (dto.LinkMailboxEmailSettingId is { } mailboxId && mailboxId != Guid.Empty)
+        {
+            var display = string.Join(' ', new[] { dto.Name, dto.Surname }.Where(s => !string.IsNullOrWhiteSpace(s)).Select(s => s.Trim()));
+            await _emailSettingsMailboxLinker.TryLinkMailboxAsync(
+                mailboxId,
+                createdUser.Id,
+                string.IsNullOrWhiteSpace(display) ? null : display,
+                cancellationToken);
+        }
 
         if (dto.IsEmployee)
         {

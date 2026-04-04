@@ -33,6 +33,7 @@ using Settings.Domain.AggregatesModel.PricingTypeAggregate;
 using Settings.Domain.AggregatesModel.AddressTypeAggregate;
 using Settings.Domain.AggregatesModel.SystemLogAggregate;
 using Settings.Domain.AggregatesModel.TemplateAggregate;
+using Settings.Domain.AggregatesModel.EmployeeGroupAggregate;
 
 namespace Settings.Infrastructure.Persistence.Seed;
 
@@ -474,6 +475,144 @@ public static class SettingsDbSeeder
             context.SystemLogs.Add(new SystemLog { CreatedAt = logTime.AddMinutes(20), Name = "database", Level = "Warning", Body = "Connection pool nearing capacity." });
         }
 
+        if (!await context.EmployeeGroups.AnyAsync(cancellationToken))
+        {
+            var companyRows = await context.Companies.AsNoTracking().OrderBy(c => c.Name).ToListAsync(cancellationToken);
+            foreach (var co in companyRows)
+            {
+                context.EmployeeGroups.Add(new EmployeeGroup
+                {
+                    Id = Guid.NewGuid(),
+                    Name = co.Name + " — Operations",
+                    CompanyId = co.Id,
+                    PermissionsJson = "{}",
+                    CreatedAtUtc = now
+                });
+                context.EmployeeGroups.Add(new EmployeeGroup
+                {
+                    Id = Guid.NewGuid(),
+                    Name = co.Name + " — Sales",
+                    CompanyId = co.Id,
+                    PermissionsJson = "{}",
+                    CreatedAtUtc = now
+                });
+            }
+
+            context.EmployeeGroups.Add(new EmployeeGroup
+            {
+                Id = Guid.NewGuid(),
+                Name = "Cross-company (no company filter)",
+                CompanyId = null,
+                PermissionsJson = "{}",
+                CreatedAtUtc = now
+            });
+        }
+
+        await EnsureErpTestEmployeeGroupAsync(context, now, cancellationToken);
+
         await context.SaveChangesAsync(cancellationToken);
+    }
+
+    /// <summary>Stable GUID so Identity seed can assign the same group. Multi-module read-only smoke test.</summary>
+    private static async Task EnsureErpTestEmployeeGroupAsync(SettingsDbContext context, DateTime now, CancellationToken cancellationToken)
+    {
+        var id = Guid.Parse("a0000001-0001-4001-8001-000000000001");
+        if (await context.EmployeeGroups.AnyAsync(g => g.Id == id, cancellationToken))
+            return;
+
+        const string permissionsJson = """
+            {
+              "Request": {
+                "viewRequest": true,
+                "commentsView": true,
+                "priceProposalsView": true
+              },
+              "Orders": {
+                "view": true
+              },
+              "Clients": {
+                "viewClients": true
+              },
+              "Carriers": {
+                "viewCarriers": true
+              },
+              "Reports": {
+                "individualReports": true,
+                "purchaseFunnel": true
+              },
+              "Task": {
+                "viewTasks": true
+              },
+              "Documents": {
+                "issuedInvoices": { "view": true, "editing": true, "delete": true, "editingPaidInvoices": true },
+                "receivedInvoices": { "view": true, "editing": true, "delete": true, "editingPaidInvoices": true },
+                "act": { "view": true, "editing": true, "delete": true },
+                "incomingPayments": { "view": true, "editing": true, "delete": true },
+                "effectedIncomingPayments": { "view": true, "editing": true, "delete": true },
+                "otherDocuments": { "view": true, "editing": true, "delete": true },
+                "documentsForRequest": { "view": true, "editing": true, "delete": true }
+              },
+              "Warehouse": {
+                "stockView": true,
+                "warehouseEditing": true,
+                "useWarehouseMobileApplications": true,
+                "documentsActivation": true,
+                "requestForDeliveryFromCustomers": { "view": true, "editing": true, "delete": true },
+                "act": { "view": true, "editing": true, "delete": true },
+                "requestForDeliveryToCarrier": { "view": true, "editing": true, "delete": true },
+                "waybill": { "view": true, "editing": true, "delete": true, "roleConfirm": true }
+              },
+              "Calculation": {
+                "accessToSalaryCalculation": "all",
+                "viewSalaryCalculation": true,
+                "editingSalaryCalculation": true
+              },
+              "Settings": {
+                "system": { "view": true, "editing": true },
+                "organization": { "view": true, "editing": true },
+                "classifiers": { "view": true, "editing": true },
+                "templates": { "view": true, "editing": true },
+                "dataTransferViaApi": { "roleActivate": true }
+              },
+              "ImportExport": {
+                "request": { "exportToExcel": true, "importFromExcel": true },
+                "orders": {
+                  "exportToExcel": true,
+                  "exportFlightsToExcel": true,
+                  "exportToXml": true,
+                  "importFromExcel": true,
+                  "exportPayrollCalculationToExcel": true
+                },
+                "cargos": { "exportToExcel": true, "exportCargoStatusesToExcel": true, "importFromExcel": true },
+                "documents": {
+                  "exportIssuedInvoicesToExcel": true,
+                  "exportIssuedInvoicesToXml": true,
+                  "exportReceivedInvoicesToExcel": true,
+                  "exportReceivedInvoicesToXml": true,
+                  "exportActsToExcel": true,
+                  "exportIncomingPaymentsToExcel": true
+                },
+                "clients": { "exportToExcel": true, "exportToXml": true, "importFromExcel": true },
+                "carriers": {
+                  "exportToExcel": true,
+                  "exportToXml": true,
+                  "importFromExcel": true,
+                  "importTerminalsToExcel": true
+                },
+                "transport": { "importFromExcel": true },
+                "drivers": { "importFromExcel": true },
+                "reports": { "exportToExcel": true }
+              }
+            }
+            """;
+
+        context.EmployeeGroups.Add(new EmployeeGroup
+        {
+            Id = id,
+            Name = "Local dev — ERP test (multi-module incl. Settings + ImportExport)",
+            CompanyId = null,
+            PermissionsJson = permissionsJson,
+            CreatedAtUtc = now
+        });
     }
 }

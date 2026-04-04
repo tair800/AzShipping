@@ -1,4 +1,5 @@
 using AzShipping.ApiSecurity;
+using Carrier.API.Authorization;
 using Carrier.Application.Extensions;
 using Carrier.Infrastructure.Extensions;
 using Carrier.Infrastructure.Persistence;
@@ -12,8 +13,9 @@ using Npgsql;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddControllers().AddJsonOptions(o =>
-    o.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase);
+builder.Services.AddControllers(o => o.Filters.Add<CarrierErpPermissionFilter>())
+    .AddJsonOptions(o =>
+        o.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddProjectVersioning();
 builder.Services.AddCustomSwaggerGen(builder.Configuration);

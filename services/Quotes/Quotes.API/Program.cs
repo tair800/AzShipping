@@ -1,6 +1,7 @@
 using System.Reflection;
 using AzShipping.ApiSecurity;
 using Microsoft.EntityFrameworkCore;
+using Quotes.API.Authorization;
 using Npgsql;
 using Microsoft.AspNetCore.Authorization;
 using Quotes.API.Extensions;
@@ -13,8 +14,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddUserSecrets(Assembly.GetExecutingAssembly(), optional: true);
 
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddControllers().AddJsonOptions(o =>
-    o.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase);
+builder.Services.AddControllers(o => o.Filters.Add<ReportErpPermissionFilter>())
+    .AddJsonOptions(o =>
+        o.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddProjectVersioning();
 builder.Services.AddCustomSwaggerGen(builder.Configuration);
@@ -30,6 +32,7 @@ builder.Services.AddAuthorization(options =>
 });
 builder.Services.AddCors(o => o.AddPolicy("AllowAll", p =>
     p.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
+builder.Services.AddErpModuleAccess(builder.Configuration);
 
 var app = builder.Build();
 

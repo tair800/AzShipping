@@ -18,6 +18,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\shared\AzShipping.ApiSecurity\AzShipping.ApiSecurity.csproj" />
+    <ProjectReference Include="..\Carrier.Domain\Carrier.Domain.csproj" />
     <ProjectReference Include="..\Carrier.Application\Carrier.Application.csproj" />
     <ProjectReference Include="..\Carrier.Infrastructure\Carrier.Infrastructure.csproj" />
   </ItemGroup>
