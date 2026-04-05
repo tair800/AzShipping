@@ -446,10 +446,7 @@ logs/
 connectionstrings.json
 
 # Repo root — local docs / run helpers (keep Nuget.config + README.md tracked)
-/API_DOCUMENTATION.md
-/API_QUICK_REFERENCE.md
 /AzShipping.Microservices.sln
-/EMAIL_SYSTEM_RELAY_TMP.md
 /SETUP.md
 /run-settings.bat
 /run-settings.ps1
